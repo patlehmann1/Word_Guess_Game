@@ -20,12 +20,13 @@ var word = words[Math.floor(Math.random() * words.length)];
 
 var answerArray = [];
 for (var i = 0; i < word.length; i++) {
- answerArray[i] = "_";
+ answerArray[i] = "_ ";
 }
 
 var remainingLetters = word.length;
 
-function displayArray(){
-    document.getElementById("guessedWords").innerHTML = "Guess this word!" + answerArray.join("");
+window.onload = function(){
+    document.getElementById("guessedWords").textContent = answerArray.join("");
 }
 
+console.log(answerArray.join(""));
