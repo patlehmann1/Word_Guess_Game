@@ -29,4 +29,9 @@ function displayArray(){
     document.getElementById("guessedWords").innerHTML = "Guess this word!" + answerArray;
 }
 
-displayArray;
+while (remainingLetters > 0) {
+    // Game code goes here
+    // Show the player their progress
+    // Take input from the player
+    // Update answerArray and remainingLetters for every correct guess
+}
