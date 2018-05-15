@@ -23,8 +23,6 @@ for (var i = 0; i < word.length; i++) {
  answerArray[i] = "_";
 }
 
-function gameStart() {
-Document.getElementById('yeahBoy').onkeyup = answerArray; 
+function displayArray(){
+    document.getElementById("guessedWords").innerHTML = "Guess this word!";
 }
-
-gameStart;
