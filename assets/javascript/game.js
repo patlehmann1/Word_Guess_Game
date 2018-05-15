@@ -19,16 +19,12 @@ var words = [
 var word = words[Math.floor(Math.random() * words.length)];
 
 var answerArray = [];
-
 for (var i = 0; i < word.length; i++) {
  answerArray[i] = "_";
 }
-var remainingLetters = word.length;
 
-while (remainingLetters > 0) {
-    // Game code goes here
-    document.getElementById(guessedWord).innerHTML = answerArray[i];
-    // Show the player their progress
-    // Take input from the player
-    // Update answerArray and remainingLetters for every correct guess
-   }
+function gameStart() {
+Document.getElementById('yeahBoy').onkeyup = answerArray; 
+}
+
+gameStart;

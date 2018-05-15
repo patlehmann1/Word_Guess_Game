@@ -6,29 +6,28 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css">
     <script src="assets/javascript/game.js"></script>
 </head>
 <body class="bg-secondary">
-<div class="container bg-white">
+<div class="container bg-white text-center">
     <div class="jumbotron">
             <img src="assets/images/islanders.jpg" alt="heading">
     </div>
     <div class="row text-primary">
-        <div class="col-lg-12 col-xs-12 text-center border border-primary">
+        <div class="col-lg-12 col-xs-12 border border-primary">
             <span>
                 Welcome to New York Islanders Hangman! Press any key to get started! <br>
             </span>
             <span>
                 Wins:
             </span><br>
+            <span id="yeahBoy">
+                 <br>
+                <!--This is where I will put the word to be guessed-->><br>
             <span>
-                Guess this word! <br>
-                <span id="guessedWord"></span>
-                <!--This is where I will put the word to be guessed-->
-                </span><br>
-            <span>
-                Number of guesses remaining: <!--this is where I will put the value--> 
+                Number of guesses remaining:<span id="guessesRemain"> </span> <!--this is where I will put the value--> 
             </span><br>
             <span>
                 Letters already guessed: <!--this is where I will put the value--> 
