@@ -23,6 +23,10 @@ for (var i = 0; i < word.length; i++) {
  answerArray[i] = "_";
 }
 
+var remainingLetters = word.length;
+
 function displayArray(){
-    document.getElementById("guessedWords").innerHTML = "Guess this word!";
+    document.getElementById("guessedWords").innerHTML = "Guess this word!" + answerArray;
 }
+
+displayArray;
