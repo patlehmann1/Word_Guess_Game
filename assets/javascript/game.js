@@ -13,6 +13,8 @@ var guessedLetters = [];
 var guessingWord = [];
 var gameStart = false;
 
+var guessedLettersUp = guessedLetters.toUpperCase;
+
 var islanderWords = [
     "BOSSY",
     "NYSTROM",
@@ -44,24 +46,34 @@ function getAllIndexes(array, letter) {
     return indexes;
 }
 
+function removeDuplicates(arr){
+    guessedLetters = []
+    for(let i = 0;i < arr.length; i++){
+        if(guessedLetters.indexOf(arr[i]) == -1){
+            guessedLetters.push(arr[i]);
+        }
+    }
+    return guessedLetters;
+}
+
 currentWordIndex = Math.floor(Math.random() * (islanderWords.length));
 
 var remainingLetters = word.length;
 
-window.onload = function gameStart(){
+document.onkeyup = function gamePlay(event){
 
     document.getElementById("guessedWords").textContent = guessArray.join("");
     document.getElementById("wins").textContent = wins;
-    document.getElementById("guessesRemain").textContent = guessesRemain;
-    
-}
+    document.getElementById("guessesRemain").textContent = guessesRemain;    
 
-document.onkeyup = function gamePlay(event){
+var userGuessNum = event.keyCode;
+var userGuess = event.key;
 
-var userGuess = event.keyCode;
-
-    if (userGuess >= 45 && userGuess <= 90){
-        guessedLetters.push(event.key);
+    if (userGuessNum >= 65 && userGuessNum <= 90){
+        guessedLetters.toUpperCase;
+        guessedLetters.push(userGuess);
+        removeDuplicates(guessedLetters);
         document.getElementById("guessed-letters").textContent = guessedLetters;
-    }
+        guessesRemain--;
+}
 }
