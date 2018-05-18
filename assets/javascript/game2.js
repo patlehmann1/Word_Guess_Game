@@ -12,6 +12,10 @@ var currentWordindex // index of the current word in the array
 var guessedLetters = [];
 var guessingWord = [];
 var gameStart = false;
+var remainingLetters = word.length;
+
+
+
 
 var islanderWords = [
     "BOSSY",
@@ -35,33 +39,23 @@ for (var i = 0; i < word.length; i++) {
 guessArray.push("_ ");
 }
 
-function getAllIndexes(array, letter) {
-    var indexes = [];
-    var i = -1;
-    while ((i = array.indexOf(letter, i + 1)) != -1) {
-        indexes.push(i);
-    }
-    return indexes;
-}
-
 currentWordIndex = Math.floor(Math.random() * (islanderWords.length));
 
-var remainingLetters = word.length;
+
 
 window.onload = function gameStart(){
-
     document.getElementById("guessedWords").textContent = guessArray.join("");
-    document.getElementById("wins").textContent = wins;
-    document.getElementById("guessesRemain").textContent = guessesRemain;
+
+}
+
+document.onkeyup = function(event){
     
-}
+    var userGuess = event.keyCode;
 
-document.onkeyup = function gamePlay(event){
+    if (userGuess >= 65 && userGuess <= 90){
+        console.log("I'm having trouble");
 
-var userGuess = event.keyCode;
-
-    if (userGuess >= 45 && userGuess <= 90){
-        guessedLetters.push(event.key);
-        document.getElementById("guessed-letters").textContent = guessedLetters;
-    }
-}
+        processGuess;
+        
+            }
+        }
