@@ -4,15 +4,12 @@ var letters = ["A", "B", "C", "D", "E", "F", "G", "H",
 
 var wins = 0;
 var guessesRemain = 20;
-
-var turnsUsed  // number of turns used
-var lettersUsed // letters already used
-var wordsUsed // words to be guessed in game
 var currentWordindex // index of the current word in the array
 var guessedLetters = [];
 var guessingWord = [];
 var gameStart = false;
-
+var userGuessNum = event.keyCode;
+var userGuess = event.key;
 
 var guessedLettersUp = guessedLetters.toUpperCase;
 
@@ -38,6 +35,8 @@ for (var i = 0; i < word.length; i++) {
 guessArray.push("_ ");
 }
 
+var remainingLetters = word.length;
+
 function getAllIndexes(array, letter) {
     var indexes = [];
     var i = -1;
@@ -59,16 +58,13 @@ function removeDuplicates(arr){
 
 currentWordIndex = Math.floor(Math.random() * (islanderWords.length));
 
-var remainingLetters = word.length;
-
 document.onkeyup = function gameStart(){
 
     document.getElementById("guessedWords").textContent = guessArray.join("");
     document.getElementById("wins").textContent = wins;
     document.getElementById("guessesRemain").textContent = guessesRemain;    
 
-    var userGuessNum = event.keyCode;
-    var userGuess = event.key;
+
 
     if (userGuessNum >= 65 && userGuessNum <= 90){
 
@@ -76,7 +72,7 @@ document.onkeyup = function gameStart(){
 
         removeDuplicates(guessedLetters);
 
-        document.getElementById("guessed-letters").textContent = guessedLetters + " ";
+        document.getElementById("guessed-letters").textContent = guessedLetters;
     
         if (guessesRemain > 0){
             guessesRemain--;
