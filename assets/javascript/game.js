@@ -8,10 +8,7 @@ var currentWordindex // index of the current word in the array
 var guessedLetters = [];
 var guessingWord = [];
 var gameStart = false;
-var userGuessNum = event.keyCode;
-var userGuess = event.key;
 
-var guessedLettersUp = guessedLetters.toUpperCase;
 
 var islanderWords = [
     "BOSSY",
@@ -32,7 +29,7 @@ var word = islanderWords[Math.floor(Math.random() * islanderWords.length)];
 
 var guessArray = [];
 for (var i = 0; i < word.length; i++) {
-guessArray.push("_ ");
+guessArray.push("_");
 }
 
 var remainingLetters = word.length;
@@ -41,7 +38,7 @@ function getAllIndexes(array, letter) {
     var indexes = [];
     var i = -1;
     while ((i = array.indexOf(letter, i + 1)) != -1) {
-        indexes.push(array[i]);
+        indexes.push(i);
     }
     return indexes;
 }
@@ -58,15 +55,29 @@ function removeDuplicates(arr){
 
 currentWordIndex = Math.floor(Math.random() * (islanderWords.length));
 
-document.onkeyup = function gameStart(){
+document.onkeyup = function gameStart(event){
 
-    document.getElementById("guessedWords").textContent = guessArray.join("");
-    document.getElementById("wins").textContent = wins;
-    document.getElementById("guessesRemain").textContent = guessesRemain;    
-
+    var userGuessNum = event.keyCode;
+    var userGuess = event.key;
 
 
     if (userGuessNum >= 65 && userGuessNum <= 90){
+
+        userGuess = userGuess.toUpperCase();
+
+        console.log(word);
+
+        var allIndexes = getAllIndexes(word, userGuess);
+
+        for (var i = 0; i < allIndexes.length; i++){
+            guessArray[allIndexes[i]] = userGuess;
+        }
+
+        document.getElementById("guessedWords").textContent = guessArray.join("");
+        document.getElementById("wins").textContent = wins;
+        document.getElementById("guessesRemain").textContent = guessesRemain;    
+
+        console.log(remainingLetters);
 
         guessedLetters.push(userGuess);
 
@@ -78,7 +89,11 @@ document.onkeyup = function gameStart(){
             guessesRemain--;
         }
         else {
-        alert("YOU LOSE!!");
+            alert("YOU LOSE!!!");
+        
+    
+
+        
     }
 
 }

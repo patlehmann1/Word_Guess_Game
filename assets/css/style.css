@@ -1,3 +1,8 @@
 body {
     font-size: 20px;
 }
+
+#guessedWords {
+    letter-spacing: 5px;
+    font-size: 60px;
+}
