@@ -27,10 +27,13 @@ var islanderWords = [
 var word = islanderWords[Math.floor(Math.random() * islanderWords.length)];
 
 
+
 var guessArray = [];
 for (var i = 0; i < word.length; i++) {
 guessArray.push("_");
 }
+
+var blankSpaces = guessArray.length;
 
 var remainingLetters = word.length;
 
@@ -53,15 +56,21 @@ function removeDuplicates(arr){
     return guessedLetters;
 }
 
+window.onload = function(){
+    document.getElementById("wins").textContent = wins;
+}
+
 currentWordIndex = Math.floor(Math.random() * (islanderWords.length));
 
-document.onkeyup = function gameStart(event){
+document.onkeyup = function gameStart(){
 
-    var userGuessNum = event.keyCode;
-    var userGuess = event.key;
+    document.onkeyup = function whenKeyIsPressed(event){
+
+        var userGuessNum = event.keyCode;
+        var userGuess = event.key;
 
 
-    if (userGuessNum >= 65 && userGuessNum <= 90){
+        if (userGuessNum >= 65 && userGuessNum <= 90){
 
         userGuess = userGuess.toUpperCase();
 
@@ -71,10 +80,10 @@ document.onkeyup = function gameStart(event){
 
         for (var i = 0; i < allIndexes.length; i++){
             guessArray[allIndexes[i]] = userGuess;
+            blankSpaces--;
         }
 
         document.getElementById("guessedWords").textContent = guessArray.join("");
-        document.getElementById("wins").textContent = wins;
         document.getElementById("guessesRemain").textContent = guessesRemain;    
 
         console.log(remainingLetters);
@@ -90,11 +99,20 @@ document.onkeyup = function gameStart(event){
         }
         else {
             alert("YOU LOSE!!!");
+            gameStart();
         
     
-
-        
+        }  
     }
+
+
+    if (blankSpaces == 0){
+        gameStart();
+        wins++;
+        document.getElementById("wins").innerHTML = wins;
+        document.getElementById("guessedWords").innerHTML = "YOU WIN!!"
+    }
+    
 
 }
 }
