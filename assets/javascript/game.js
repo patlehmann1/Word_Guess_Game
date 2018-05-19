@@ -76,7 +76,7 @@ document.onkeyup = function gameStart(){
 
         removeDuplicates(guessedLetters);
 
-        document.getElementById("guessed-letters").textContent = guessedLetters;
+        document.getElementById("guessed-letters").textContent = guessedLetters + " ";
     
         if (guessesRemain > 0){
             guessesRemain--;
