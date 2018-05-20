@@ -26,8 +26,6 @@ var islanderWords = [
 
 var word = islanderWords[Math.floor(Math.random() * islanderWords.length)];
 
-
-
 var guessArray = [];
 for (var i = 0; i < word.length; i++) {
 guessArray.push("_");
@@ -55,12 +53,6 @@ function removeDuplicates(arr){
     }
     return guessedLetters;
 }
-
-window.onload = function(){
-    document.getElementById("wins").textContent = wins;
-}
-
-currentWordIndex = Math.floor(Math.random() * (islanderWords.length));
 
 document.onkeyup = function gameStart(){
 
@@ -99,7 +91,6 @@ document.onkeyup = function gameStart(){
         }
         else {
             alert("YOU LOSE!!!");
-            gameStart();
         
     
         }  
@@ -110,7 +101,8 @@ document.onkeyup = function gameStart(){
         gameStart();
         wins++;
         document.getElementById("wins").innerHTML = wins;
-        document.getElementById("guessedWords").innerHTML = "YOU WIN!!"
+        document.getElementById("youWin").innerHTML = "YOU WIN!!! LETS GO ISLANDERS!!!!";
+        
     }
     
 
