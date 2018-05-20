@@ -66,8 +66,6 @@ document.onkeyup = function gameStart(){
 
         userGuess = userGuess.toUpperCase();
 
-        console.log(word);
-
         var allIndexes = getAllIndexes(word, userGuess);
 
         for (var i = 0; i < allIndexes.length; i++){
@@ -76,9 +74,7 @@ document.onkeyup = function gameStart(){
         }
 
         document.getElementById("guessedWords").textContent = guessArray.join("");
-        document.getElementById("guessesleft").textContent = guessesRemain;    
-
-        console.log(remainingLetters);
+        document.getElementById("guessesleft").textContent = guessesRemain;
 
         guessedLetters.push(userGuess);
 
