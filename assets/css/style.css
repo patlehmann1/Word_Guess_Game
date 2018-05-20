@@ -1,9 +1,15 @@
 body {
-    font-size: 20px;
+    font-size: 25px;
     color: orange !important;
 }
 
 #guessedWords {
     letter-spacing: 5px;
     font-size: 60px;
+}
+
+#heading-photo {
+    width: 200px;
+    height: 150px;
+    
 }

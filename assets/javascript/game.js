@@ -3,7 +3,7 @@ var letters = ["A", "B", "C", "D", "E", "F", "G", "H",
 "T", "U", "V", "W", "X", "Y", "Z"];
 
 var wins = 0;
-var guessesRemain = 20;
+var guessesRemain = 15;
 var currentWordindex // index of the current word in the array
 var guessedLetters = [];
 var guessingWord = [];
@@ -35,6 +35,8 @@ var blankSpaces = guessArray.length;
 
 var remainingLetters = word.length;
 
+var resetButton= document.getElementById("reset-button");
+
 function getAllIndexes(array, letter) {
     var indexes = [];
     var i = -1;
@@ -54,7 +56,6 @@ function removeDuplicates(arr){
     return guessedLetters;
 }
 
-document.onkeyup = function gameStart(){
 
     document.onkeyup = function whenKeyIsPressed(event){
 
@@ -90,7 +91,7 @@ document.onkeyup = function gameStart(){
         
     
         }  
-    }
+
 
 
     if (blankSpaces == 0){
