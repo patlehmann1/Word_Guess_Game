@@ -1,111 +1,111 @@
-var words = [
-    "accio",
-    "aguamenti",
-    "alohomora",
-    "crucio",
-    "episkey",
-    "lumos",
-    "diffindo",
-    "evanesco",
-    "expelliarmus",
-    "imperio",
-    "nox",
-    "incendio",
-    "levicorpus",
-    "mosmordre",
-    "obliviate",
-    "portus",
-    "reducto",
-    "reparo",
-    "riddikulus",
-    "rictusempra",
-    "scourgify",
-    "stupefy",
-]
-// Sets Game Variables
-var guessesLeft = 10; //Number of tries a player has to guess the word 
-var previousGuesses = []; //Letters already guessed
-var answerArray = []; //The dashes and letters guessed
-var winNumber = 0; //Number of Wins 
-var chosenWord; //The word that is chosen
-var wordSpace = document.getElementById("guessedwords"); //Grabbing the span for answers
-var letterGuesses = document.getElementById("guessed-letters"); //Grabbing the previous guesses 
-var guessesRemaining = document.getElementById("guessesRemain"); //Grabbing guesses paragraph
-var winCount = document.getElementById("wins"); //Grabbing number of wins paragraph
-var alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]; //Setting up variable so only alphabet letters can be used 
+var letters = ["A", "B", "C", "D", "E", "F", "G", "H",
+"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
+"T", "U", "V", "W", "X", "Y", "Z"];
 
+var wins = 0;
+var guessesLeft = 15;
+var currentWordindex // index of the current word in the array
+var guessedLetters = [];
+var guessingWord = [];
+var guessArray = [];
+var gameStart = false;
+var word;
+var blankSpaces;
+var blankWordGuess = document.getElementById("blankWordGuess")
+var alreadyGuessedLetters = document.getElementById("guessed-letters");
+var youWin = document.getElementById("YouWin");
+var wins = document.getElementById("wins");
+var resetButton = document.getElementById("reset-button");
+var guessesRemain = document.getElementById("guessesleft");
 
-// When a new game starts, sets variables 
+//dom manipulation
+
+var islanderWords = [
+    "BOSSY",
+    "NYSTROM",
+    "TAVARES",
+    "TROTTIER",
+    "SMITH",
+    "HOCKEY",
+    "STANLEYCUP",
+    "DEFENSEMAN",
+    "FORWARD",
+    "GOALIE",
+    "COLISEUM",
+    "POTVIN",
+    "PUCK",
+    "UNIONDALE"
+];
+
 function startNewGame() {
     //Resets variables
-    answerArray = [];
+    guessArray = [];
     previousGuesses = [];
     guessesLeft = 10;
     //Chooses a random word 
-    chosenWord = words[Math.floor(Math.random() * words.length)]
+    word = islanderWords[Math.floor(Math.random() * islanderWords.length)]
     // Sets up Number of Blanks Needed
-    for (var i = 0; i < chosenWord.length; i++) {
-        answerArray.push("_");
-        wordSpace.innerHTML = answerArray.join("");
+    for (var i = 0; i < word.length; i++) {
+        guessArray.push("_");
     }
     //Rewrites variables
-    letterGuesses.innerHTML = "Previous Guesses: " + previousGuesses;
-    guessesRemaining.innerHTML = "Number of Guesses: " + guessesLeft;
+    
 }
 
-function updateWords(letter) {
-    //If the letter does not match, then letter is added to previous guesses and a turn is lost.
-    if (chosenWord.indexOf(letter) === -1 && alphabet.indexOf(letter) >= 0) {
-        if (previousGuesses.indexOf(letter) >= 0){
-        }
-        else{
-        previousGuesses.push(letter);
-        letterGuesses.innerHTML = "Previous Guesses: " + previousGuesses.join(", ");
-        guessesLeft--;
-        guessesRemaining.innerHTML = "Number of Guesses: " + guessesLeft;}
-    //If the letter matches, then letter is added to answerArray
-    } else if (chosenWord.indexOf(letter) >= 0 && alphabet.indexOf(letter) >= 0) {
-        for (var i = 0; i < chosenWord.length; i++) {
-            if (chosenWord[i] === letter) {
-                answerArray[i] = letter;
-            }
-            wordSpace.innerHTML = answerArray.join(" ")
+    
+    
+    //Rewrites variables
+    
+
+
+
+
+
+function getAllIndexes(array, letter) {
+    var indexes = [];
+    var i = -1;
+    while ((i = array.indexOf(letter, i + 1)) != -1) {
+        indexes.push(i);
+    }
+    return indexes;
+}
+
+function updateWords(arr){
+    guessedLetters = []
+    blankSpaces = guessArray.length;
+    for(let i = 0;i < arr.length; i++){
+        if(guessedLetters.indexOf(arr[i]) == -1){
+            guessedLetters.push(arr[i]);
         }
     }
+    var allIndexes = getAllIndexes(word, userGuess);
 
-}
-
-//Adds to the number of wins 
-function youWon() {
-    winNumber++;
-    winCount.innerHTML = "Number of Wins: " + winNumber;
-
-}
-
-//Creates a function for the alert in order to use setTimeout
-function alertWin(){
-    alert("You're a word wizard!");
-}
-
-//Alerts user if they won or lost
-function didYouWin() {
-    if (answerArray.indexOf("_") === -1) {
-        var slowWinAlert = setTimeout(alertWin, 500);
-        youWon();
-        var SlowReset = setTimeout(startNewGame, 500);
-    } else if (guessesLeft === 0) {
-        alert("You've lost, old friend!");
-        startNewGame();
+    for (var i = 0; i < allIndexes.length; i++){
+        guessArray[allIndexes[i]] = userGuess;
+        blankSpaces--;
     }
-
+    
+    return blankSpaces;
 }
 
-// Whenever a key is pressed
 document.onkeyup = function (event) {
     var humanInput = event.key;
     updateWords(humanInput);
     didYouWin();
 }
 
-//What happens when the page loads 
-window.onload = startNewGame();
+
+window.onload = function(){
+
+    startNewGame();
+
+    guessArray = [];
+
+    blankWordGuess.innerHTML = guessArray.join(" ");
+    alreadyGuessedLetters.innerHTML = "Previous Guesses: " + previousGuesses;
+    guessesRemain.innerHTML = "Number of Guesses: " + guessesLeft;
+
+
+
+
+}

@@ -76,7 +76,7 @@ document.onkeyup = function gameStart(){
         }
 
         document.getElementById("guessedWords").textContent = guessArray.join("");
-        document.getElementById("guessesRemain").textContent = guessesRemain;    
+        document.getElementById("guessesleft").textContent = guessesRemain;    
 
         console.log(remainingLetters);
 
