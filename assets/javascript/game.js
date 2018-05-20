@@ -95,7 +95,6 @@ function removeDuplicates(arr){
 
 
     if (blankSpaces == 0){
-        gameStart();
         wins++;
         document.getElementById("wins").innerHTML = wins;
         document.getElementById("youWin").innerHTML = "YOU WIN!!! LETS GO ISLANDERS!!!!";
