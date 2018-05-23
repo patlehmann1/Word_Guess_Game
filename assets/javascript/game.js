@@ -5,9 +5,11 @@ var letters = ["A", "B", "C", "D", "E", "F", "G", "H",
 var wins = 0;
 var guessesRemain = 15;
 var currentWordindex // index of the current word in the array
+var guessArray = [];
 var guessedLetters = [];
 var guessingWord = [];
-var gameStart = false;
+var resetButton= document.getElementById("reset-button");
+var userGuess;
 
 
 var islanderWords = [
@@ -26,25 +28,18 @@ var islanderWords = [
 
 var word = islanderWords[Math.floor(Math.random() * islanderWords.length)];
 
-var guessArray = [];
-for (var i = 0; i < word.length; i++) {
-guessArray.push("_");
+function gameStart(){
+
+    for (var i = 0; i < word.length; i++) {
+        guessArray[i] = "_";
+    }
+    document.getElementById("guessedWords").textContent = guessArray.join("");
 }
 
 var blankSpaces = guessArray.length;
 
 var remainingLetters = word.length;
 
-var resetButton= document.getElementById("reset-button");
-
-function getAllIndexes(array, letter) {
-    var indexes = [];
-    var i = -1;
-    while ((i = array.indexOf(letter, i + 1)) != -1) {
-        indexes.push(i);
-    }
-    return indexes;
-}
 
 function removeDuplicates(arr){
     guessedLetters = []
@@ -56,51 +51,53 @@ function removeDuplicates(arr){
     return guessedLetters;
 }
 
+function replaceBlanks(){
+
+    for (var i = 0; i < word.length; i++){
+        if (word[i] === userGuess){
+            guessArray[i] = userGuess;
+        }
+        blankSpaces--;
+    }
+}
+
+gameStart(guessArray);
+
+document.getElementById("guessesleft").textContent = guessesRemain;
+document.getElementById("wins").innerHTML = wins;
+document.getElementById("guessed-letters").textContent = guessedLetters;
+
 
     document.onkeyup = function whenKeyIsPressed(event){
 
         var userGuessNum = event.keyCode;
-        var userGuess = event.key;
+        userGuess = String.fromCharCode(userGuessNum);
 
 
         if (userGuessNum >= 65 && userGuessNum <= 90){
 
-        userGuess = userGuess.toUpperCase();
+            userGuess = userGuess.toUpperCase();
 
-        var allIndexes = getAllIndexes(word, userGuess);
+            guessedLetters.push(userGuess);
 
-        for (var i = 0; i < allIndexes.length; i++){
-            guessArray[allIndexes[i]] = userGuess;
-            blankSpaces--;
-        }
+            removeDuplicates(guessedLetters);
 
-        document.getElementById("guessedWords").textContent = guessArray.join("");
-        document.getElementById("guessesleft").textContent = guessesRemain;
+            replaceBlanks();
 
-        guessedLetters.push(userGuess);
-
-        removeDuplicates(guessedLetters);
-
-        document.getElementById("guessed-letters").textContent = guessedLetters;
-    
-        if (guessesRemain > 0){
-            guessesRemain--;
-        }
-        else {
+            if (guessesRemain > 0){
+                guessesRemain--;
+            }
+            else {
             alert("YOU LOSE!!!");
         
     
         }  
-
-
-
-    if (blankSpaces == 0){
-        wins++;
-        document.getElementById("wins").innerHTML = wins;
-        document.getElementById("youWin").innerHTML = "YOU WIN!!! LETS GO ISLANDERS!!!!";
-        
     }
-    
 
+if (blankSpaces == 0){
+    wins++;
+    document.getElementById("youWin").innerHTML = "YOU WIN!!! LETS GO ISLANDERS!!!!";
+    
 }
+
 }
