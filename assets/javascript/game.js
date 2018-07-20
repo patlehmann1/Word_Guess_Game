@@ -1,21 +1,18 @@
-var letters = ["A", "B", "C", "D", "E", "F", "G", "H",
-"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
-"T", "U", "V", "W", "X", "Y", "Z"];
 
-var wins = 0;
-var guessesRemain = 15;
-var currentWordindex // index of the current word in the array
+//global variables
+var actualWord = "";
+var letters = [];
 var guessArray = [];
-var guessedLetters = [];
-var guessingWord = [];
-var resetButton= document.getElementById("reset-button");
-var userGuess;
-
+var wrongLetters = [];
+var num = 0;
+var guessesRemain = 20;
+var losses = 0;
+var wins = 0;
 
 var islanderWords = [
     "BOSSY",
     "NYSTROM",
-    "TAVARES",
+    "BARZAL",
     "TROTTIER",
     "SMITH",
     "HOCKEY",
@@ -23,81 +20,74 @@ var islanderWords = [
     "DEFENSEMAN",
     "FORWARD",
     "GOALIE",
-    "COLISEUM"
+    "COLISEUM",
+    "NHL",
+    "ISLANDERS",
+    "NEWYORK",
+    "BLUELINE",
+    "FACEOFF",
+    "FIGHTING"
 ];
 
-var word = islanderWords[Math.floor(Math.random() * islanderWords.length)];
-
-function gameStart(){
-
+function gameStart() {
+    var word = islanderWords[Math.floor(Math.random() * islanderWords.length)];
+    letters = actualWord.split("");
+    num = letters.length;
     for (var i = 0; i < word.length; i++) {
-        guessArray[i] = "_";
+        guessArray.push("_");
     }
-    document.getElementById("guessedWords").textContent = guessArray.join("");
+
+    document.getElementById("guessedWords").innerHTML = guessArray.join(" ");
+    document.getElementById("wins").innerHTML = wins;
+    document.getElementById("losses").innerHTML = losses;
+    document.getElementById("guessesleft").innerHTML = guessesRemain;
 }
 
-var blankSpaces = guessArray.length;
+function checkAnswer (letter) {
 
-var remainingLetters = word.length;
-
-
-function removeDuplicates(arr){
-    guessedLetters = []
-    for(let i = 0;i < arr.length; i++){
-        if(guessedLetters.indexOf(arr[i]) == -1){
-            guessedLetters.push(arr[i]);
-        }
+    var letterInWord = false;
+  
+    for(var j = 0; j < num; j++) {
+      if (letter == actualWord[j]) {
+        letterInWord = true;
+      }
     }
-    return guessedLetters;
-}
-
-function replaceBlanks(){
-
-    for (var i = 0; i < word.length; i++){
-        if (word[i] === userGuess){
-            guessArray[i] = userGuess;
-        }
-        blankSpaces--;
+   
+    if (letterInWord) {
+      for(var j = 0; j < num; j++) {
+        if (actualWord[j] == letter) {
+          guessArray[j] = letter;
+          console.log(guessArray);
+        }         
+      }
+    } else {
+        wrongLetters.push(letter);
+        guessesRemain--;
     }
-}
-
-gameStart(guessArray);
-
-document.getElementById("guessesleft").textContent = guessesRemain;
-document.getElementById("wins").innerHTML = wins;
-document.getElementById("guessed-letters").textContent = guessedLetters;
-
-
-    document.onkeyup = function whenKeyIsPressed(event){
-
-        var userGuessNum = event.keyCode;
-        userGuess = String.fromCharCode(userGuessNum);
-
-
-        if (userGuessNum >= 65 && userGuessNum <= 90){
-
-            userGuess = userGuess.toUpperCase();
-
-            guessedLetters.push(userGuess);
-
-            removeDuplicates(guessedLetters);
-
-            replaceBlanks();
-
-            if (guessesRemain > 0){
-                guessesRemain--;
-            }
-            else {
-            alert("YOU LOSE!!!");
-        
     
-        }  
+  };
+
+  function rounds() {
+    document.getElementById("guessesleft").innerHTML = guessesRemain;
+    document.getElementById("guessed-letters").innerHTML = wrongLetters;
+    document.getElementById("guessedWords").innerHTML = guessArray.join(" ");
+     
+    if(letters.toString() == guessArray.toString()) {
+      wins++;
+      document.getElementById("wins").innerHTML = wins;
+      gameStart();
+    } else if (guessesRemain === 0) {
+        losses++;
+        document.getElementById("losses").innerHTML = losses;
+        gameStart();
     }
+  };
 
-if (blankSpaces == 0){
-    wins++;
-    document.getElementById("youWin").innerHTML = "YOU WIN!!! LETS GO ISLANDERS!!!!";
-    
-}
+  document.addEventListener("onkeyup", function(event) {
+    var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+    console.log(userGuess);
+    checkAnswer(userGuess);
+    rounds();
+  });
 
-}
+  gameStart();
